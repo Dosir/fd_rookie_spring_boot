@@ -1,6 +1,8 @@
 package com.fd.rookie.spring.boot;
 
+import com.fd.rookie.spring.boot.mapper.SecPermissionMapper;
 import com.fd.rookie.spring.boot.mapper.UserMapper;
+import com.fd.rookie.spring.boot.po.SecPermission;
 import com.fd.rookie.spring.boot.po.SecUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,9 @@ public class RookieSpringBootApplicationTests {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private SecPermissionMapper secPermissionMapper;
+
 	@Test
 	public void contextLoads() {
 	}
@@ -30,6 +35,12 @@ public class RookieSpringBootApplicationTests {
 		for (SecUser user : userList) {
 			System.out.println(user.getUserId());
 		}
+	}
+
+	@Test
+	public void getSecPermission() {
+		SecPermission secPermission = secPermissionMapper.selectByPrimaryKey(1);
+		System.out.println(secPermission.getPermissionName());
 	}
 
 }

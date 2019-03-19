@@ -15,6 +15,7 @@ import java.util.Arrays;
  */
 @RestController
 @SpringBootApplication
+@tk.mybatis.spring.annotation.MapperScan(basePackages = "com.fd.rookie.spring.boot.mapper")
 public class RookieSpringBootApplication {
 
 	public static void main(String[] args) {
