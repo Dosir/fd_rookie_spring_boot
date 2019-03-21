@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.util.Properties;
 
-@Component
+//@Component
 @Intercepts( {
         @Signature(method = "query", type = Executor.class, args = {
                 MappedStatement.class, Object.class, RowBounds.class,

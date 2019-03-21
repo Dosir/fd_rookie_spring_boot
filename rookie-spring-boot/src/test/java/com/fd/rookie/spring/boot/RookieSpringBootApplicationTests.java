@@ -4,6 +4,7 @@ import com.fd.rookie.spring.boot.mapper.SecPermissionMapper;
 import com.fd.rookie.spring.boot.mapper.UserMapper;
 import com.fd.rookie.spring.boot.po.SecPermission;
 import com.fd.rookie.spring.boot.po.SecUser;
+import com.fd.rookie.spring.boot.utils.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -50,6 +51,14 @@ public class RookieSpringBootApplicationTests {
 		PageHelper.startPage(1, 10).setOrderBy("permission_id desc");
 		final PageInfo<SecPermission> permissionPageInfo = new PageInfo<>(this.secPermissionMapper.selectAll());
 		log.info("[普通写法] - [{}]", permissionPageInfo);
+	}
+
+	@Test
+	public void testPageInterceptor() {
+		Page<SecPermission> permissionPage = new Page<>();
+		permissionPage.setPageSize(2);
+		permissionPage.setResults(secPermissionMapper.getSecPermissionList(permissionPage));
+		System.out.println(permissionPage);
 	}
 
 }

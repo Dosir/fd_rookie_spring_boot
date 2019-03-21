@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fd.rookie.spring.boot.mapper.SecPermissionMapper" >
+  <resultMap id="SecPermissionMap" type="com.fd.rookie.spring.boot.po.SecPermission" >
+    <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    permission_id, url, parent_id, description, permission_name
+  </sql>
+
+  <select id="getSecPermissionList" resultMap="SecPermissionMap">
+    select <include refid="Base_Column_List"/>
+    from sec_permission
+  </select>
+</mapper>
