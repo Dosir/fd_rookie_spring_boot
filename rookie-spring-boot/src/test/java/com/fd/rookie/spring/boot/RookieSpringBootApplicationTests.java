@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -42,8 +43,17 @@ public class RookieSpringBootApplicationTests {
 
 	@Test
 	public void getSecPermission() {
-		SecPermission secPermission = secPermissionMapper.selectByPrimaryKey(1);
+		SecPermission secPermission = secPermissionMapper.selectByPrimaryKey(2);
 		System.out.println(secPermission.getPermissionName());
+	}
+
+	@Test
+	public void insertSecPermission() {
+		SecPermission secPermission = new SecPermission();
+		secPermission.setPermissionId(1);
+		secPermission.setDescription("权限1");
+		secPermission.setPermissionName("父权限");
+		secPermissionMapper.insert(secPermission);
 	}
 
 	@Test
