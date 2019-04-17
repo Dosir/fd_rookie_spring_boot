@@ -14,6 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  Broker:它提供一种传输服务,它的角色就是维护一条从生产者到消费者的路线，保证数据能按照指定的方式进行传输,
  Exchange：消息交换机,它指定消息按什么规则,路由到哪个队列。
@@ -43,15 +46,21 @@ public class RabbitConfig {
 
     public static final String EXCHANGE_A = "my-mq-exchange_A";
     public static final String EXCHANGE_B = "my-mq-exchange_B";
-    public static final String EXCHANGE_C = "my-mq-exchange_C";
 
     public static final String QUEUE_A = "QUEUE_A";
     public static final String QUEUE_B = "QUEUE_B";
-    public static final String QUEUE_C = "QUEUE_C";
 
     public static final String ROUTINGKEY_A = "spring-boot-routingKey.A";
     public static final String ROUTINGKEY_B = "spring-boot-routingKey.#";
-    public static final String ROUTINGKEY_C = "spring-boot-routingKey.C";
+
+    //dead letter exchange
+    public static final String EXCHANGE_DELAY = "my-mq-exchange_DELAY";
+
+    //延迟队列名称
+    public static final String QUEUE_DELAY = "QUEUE_DELAY";
+
+    //延迟队列的routing-key
+    public static final String ROUTING_KEY_DELAY = "";
 
 
     @Bean
@@ -103,6 +112,25 @@ public class RabbitConfig {
         return new Queue(QUEUE_B, true);
     }
 
+    @Bean
+    public Queue delayProcessQueue() {
+        Map<String, Object> params = new HashMap<>();
+        //x-dead-letter-exchange 声明了队列里的死信转发到的DLX名称
+        params.put("x-dead-letter-exchange", EXCHANGE_A);
+        // x-dead-letter-routing-key 声明了这些死信在转发时携带的 routing-key 名称
+        params.put("x-dead-letter-routing-key", ROUTINGKEY_A);
+        return new Queue(QUEUE_DELAY, true, false, false, params);
+    }
+
+    @Bean
+    public DirectExchange delayExchange() {
+        return new DirectExchange(EXCHANGE_DELAY);
+    }
+
+    @Bean
+    public Binding dlxBinding() {
+        return BindingBuilder.bind(delayProcessQueue()).to(delayExchange()).with(ROUTING_KEY_DELAY);
+    }
 
     @Bean
     Binding binding(Queue queueA, DirectExchange defaultExchange) {

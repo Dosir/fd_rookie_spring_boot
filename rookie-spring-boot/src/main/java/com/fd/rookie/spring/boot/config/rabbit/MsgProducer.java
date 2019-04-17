@@ -36,6 +36,19 @@ public class MsgProducer implements RabbitTemplate.ConfirmCallback {
     }
 
     /**
+     * 发送延迟消息
+     */
+    public void sendDelayMsg(String content) {
+        CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
+        //把消息放入延时队列中
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_DELAY, RabbitConfig.ROUTING_KEY_DELAY, content, message -> {
+            // TODO 如果配置了 params.put("x-message-ttl", 5 * 1000); 那么这一句也可以省略,具体根据业务需要是声明 Queue 的时候就指定好延迟时间还是在发送自己控制时间
+            message.getMessageProperties().setExpiration(5 * 1000 + "");
+            return message;
+        }, correlationId);
+    }
+
+    /**
      * 回调
      */
     @Override

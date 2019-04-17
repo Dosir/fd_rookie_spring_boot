@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -80,6 +81,13 @@ public class RookieSpringBootApplicationTests {
 	public void testRabbitMq() {
 		String abc = "hello RabbitMQ!";
 		producer.sendMsg(abc);
+	}
+
+	@Test
+	public void testRabbitMqDelay() throws IOException {
+		String abc = "hello Delay RabbitMQ!";
+		producer.sendDelayMsg(abc);
+		System.in.read();
 	}
 
 }
