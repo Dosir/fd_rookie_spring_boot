@@ -1,5 +1,6 @@
 package com.fd.rookie.spring.boot;
 
+import com.fd.rookie.spring.boot.config.rabbit.MsgProducer;
 import com.fd.rookie.spring.boot.mapper.SecPermissionMapper;
 import com.fd.rookie.spring.boot.mapper.UserMapper;
 import com.fd.rookie.spring.boot.po.SecPermission;
@@ -31,7 +32,7 @@ public class RookieSpringBootApplicationTests {
 	private SecPermissionMapper secPermissionMapper;
 
 	@Autowired
-	RabbitTemplate rabbitTemplate;
+	MsgProducer producer;
 
 	@Test
 	public void contextLoads() {
@@ -78,7 +79,7 @@ public class RookieSpringBootApplicationTests {
 	@Test
 	public void testRabbitMq() {
 		String abc = "hello RabbitMQ!";
-		rabbitTemplate.convertAndSend("spring-boot-exchange", "topic.a", abc + " from RabbitMQ!");
+		producer.sendMsg(abc);
 	}
 
 }
