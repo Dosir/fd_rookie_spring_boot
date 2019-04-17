@@ -79,6 +79,12 @@
             <version>2.8.0</version>
         </dependency>
 
+		<!-- rabbitmq相关依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
 		<!-- 该依赖可以不添加，但是在 IDEA 和 STS 中不会有属性提示，没有提示的配置就跟你用记事本写代码一样苦逼，
 		出个问题弄哭你去，该依赖只会在编译时调用，所以不用担心会对生产造成影响 -->
 		<dependency>

@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,6 +29,9 @@ public class RookieSpringBootApplicationTests {
 
 	@Autowired
 	private SecPermissionMapper secPermissionMapper;
+
+	@Autowired
+	RabbitTemplate rabbitTemplate;
 
 	@Test
 	public void contextLoads() {
@@ -69,6 +73,12 @@ public class RookieSpringBootApplicationTests {
 		permissionPage.setPageSize(2);
 		permissionPage.setResults(secPermissionMapper.getSecPermissionList(permissionPage));
 		System.out.println(permissionPage);
+	}
+
+	@Test
+	public void testRabbitMq() {
+		String abc = "hello RabbitMQ!";
+		rabbitTemplate.convertAndSend("spring-boot-exchange", "topic.a", abc + " from RabbitMQ!");
 	}
 
 }
