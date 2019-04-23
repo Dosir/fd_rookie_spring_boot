@@ -69,6 +69,9 @@ public class RookieSpringBootApplicationTests {
 		log.info("[普通写法] - [{}]", permissionPageInfo);
 	}
 
+	/**
+	 * 测试 分页拦截器
+	 */
 	@Test
 	public void testPageInterceptor() {
 		Page<SecPermission> permissionPage = new Page<>();
@@ -77,12 +80,19 @@ public class RookieSpringBootApplicationTests {
 		System.out.println(permissionPage);
 	}
 
+	/**
+	 * 测试 RabbitMQ
+	 */
 	@Test
 	public void testRabbitMq() {
 		String abc = "hello RabbitMQ!";
 		producer.sendMsg(abc);
 	}
 
+	/**
+	 * 测试 Rabbit的延迟队列
+	 * @throws IOException
+	 */
 	@Test
 	public void testRabbitMqDelay() throws IOException {
 		String abc = "hello Delay RabbitMQ!";

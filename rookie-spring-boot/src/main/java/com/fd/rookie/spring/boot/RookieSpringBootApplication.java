@@ -1,5 +1,7 @@
 package com.fd.rookie.spring.boot;
 
+import com.fd.rookie.spring.boot.common.Result;
+import com.fd.rookie.spring.boot.config.exception.BusinessException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +27,20 @@ public class RookieSpringBootApplication {
 	@GetMapping("/demo1")
 	public String demo1() {
 		return "Hello Luis";
+	}
+
+	/**
+	 * 测试 统一异常处理
+	 */
+	@GetMapping("/testException")
+	public Result testException(int num) throws RuntimeException{
+		Result result = new Result();
+		if (num < 0) {
+			throw new BusinessException("num不能为负数!");
+		}
+		int i = 10 / num;
+		result.setData(i);
+		return result;
 	}
 
 	@Bean
