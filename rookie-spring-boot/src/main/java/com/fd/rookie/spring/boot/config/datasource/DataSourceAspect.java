@@ -1,4 +1,4 @@
-package com.fd.rookie.spring.boot.config;
+package com.fd.rookie.spring.boot.config.datasource;
 
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;

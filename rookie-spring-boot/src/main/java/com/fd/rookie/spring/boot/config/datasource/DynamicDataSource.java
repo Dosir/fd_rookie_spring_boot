@@ -1,4 +1,4 @@
-package com.fd.rookie.spring.boot.config;
+package com.fd.rookie.spring.boot.config.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.lang.Nullable;

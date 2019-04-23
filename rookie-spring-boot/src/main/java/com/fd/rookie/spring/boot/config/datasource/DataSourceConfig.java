@@ -1,4 +1,4 @@
-package com.fd.rookie.spring.boot.config;
+package com.fd.rookie.spring.boot.config.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;

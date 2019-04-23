@@ -1,4 +1,4 @@
-package com.fd.rookie.spring.boot.config;
+package com.fd.rookie.spring.boot.config.datasource;
 
 /**
  * 数据源类型
