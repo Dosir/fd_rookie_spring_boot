@@ -5,6 +5,8 @@ import com.fd.rookie.spring.boot.mapper.SecPermissionMapper;
 import com.fd.rookie.spring.boot.mapper.UserMapper;
 import com.fd.rookie.spring.boot.po.SecPermission;
 import com.fd.rookie.spring.boot.po.SecUser;
+import com.fd.rookie.spring.boot.po.order.TOrder;
+import com.fd.rookie.spring.boot.service.order.OrderService;
 import com.fd.rookie.spring.boot.utils.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,6 +33,9 @@ public class RookieSpringBootApplicationTests {
 
 	@Autowired
 	private SecPermissionMapper secPermissionMapper;
+
+	@Autowired
+	private OrderService orderService;
 
 	@Autowired
 	MsgProducer producer;
@@ -98,6 +103,17 @@ public class RookieSpringBootApplicationTests {
 		String abc = "hello Delay RabbitMQ!";
 		producer.sendDelayMsg(abc);
 		System.in.read();
+	}
+
+	/**
+	 * 测试策略模式
+	 */
+	@Test
+	public void testStrategy() {
+		TOrder tOrder = new TOrder();
+		tOrder.setType("2");
+		String result = orderService.handleOrder(tOrder);
+		System.out.println(result);
 	}
 
 }
