@@ -1,5 +1,6 @@
 package com.fd.rookie.spring.boot.po.order;
 
+import com.fd.rookie.spring.boot.common.validator.UpdateGroup;
 import com.fd.rookie.spring.boot.po.Po;
 import lombok.Data;
 
@@ -21,6 +22,6 @@ public class TOrder extends Po{
     @DecimalMin(value = "0.1", message = "价格不能低于 {value}")
     private BigDecimal price;
 
-    @NotBlank(message = "类型 不允许为空")
+    @NotBlank(message = "类型 不允许为空", groups = UpdateGroup.class)
     private String type;
 }

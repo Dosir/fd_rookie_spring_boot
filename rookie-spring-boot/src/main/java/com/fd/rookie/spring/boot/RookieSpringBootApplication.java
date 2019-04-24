@@ -2,6 +2,7 @@ package com.fd.rookie.spring.boot;
 
 import com.fd.rookie.spring.boot.annotation.DateTime;
 import com.fd.rookie.spring.boot.common.Result;
+import com.fd.rookie.spring.boot.common.validator.UpdateGroup;
 import com.fd.rookie.spring.boot.config.exception.BusinessException;
 import com.fd.rookie.spring.boot.po.order.TOrder;
 import com.fd.rookie.spring.boot.service.order.OrderService;
@@ -52,7 +53,7 @@ public class RookieSpringBootApplication {
 	}
 
 	@PostMapping("/testValidation")
-	public void testValidation(@Validated TOrder tOrder) {
+	public void testValidation(@Validated(value = UpdateGroup.class) TOrder tOrder) {
 		String result = orderService.handleOrder(tOrder);
 		System.out.println(result);
 	}
