@@ -23,15 +23,14 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
         Result result = new Result();
-        String message = e.getMessage();
         if (e instanceof BusinessException) {
             result.setCode(ResultCode.FAIL);
             result.setMessage(((BusinessException) e).getMsg());
         } else {
             result.setCode(ResultCode.INTERNAL_SERVER_ERROR);
-            result.setMessage(message);
+            result.setMessage(e.getMessage());
         }
-        logger.error(message, e);
+        logger.error(result.getMessage(), e);
         responseResult(httpServletResponse, result);
         return new ModelAndView();
     }

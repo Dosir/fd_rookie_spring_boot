@@ -1,6 +1,7 @@
 package com.fd.rookie.spring.boot;
 
 import com.fd.rookie.spring.boot.annotation.DateTime;
+import com.fd.rookie.spring.boot.annotation.LocalLock;
 import com.fd.rookie.spring.boot.common.Result;
 import com.fd.rookie.spring.boot.common.validator.UpdateGroup;
 import com.fd.rookie.spring.boot.config.exception.BusinessException;
@@ -64,6 +65,18 @@ public class RookieSpringBootApplication {
 	@GetMapping("/testValidation2")
 	public String testValidation2(@RequestParam @DateTime(message = "您输入的格式错误，正确的格式为：{format}", format = "yyyy-MM-dd HH:mm") String date) {
 		return "success";
+	}
+
+	/**
+	 * 测试重复提交
+	 * @param token
+	 * @return
+	 */
+	//token:arg[0]，其中arg[0] 替换成第一个参数的值，生成后的新 key 将被缓存起来
+	@LocalLock(key = "token:arg[0]")
+	@GetMapping("/testRepeatSubmit")
+	public String testRepeatSubmit(@RequestParam String token) {
+		return "success - " + token;
 	}
 
 	@Bean
